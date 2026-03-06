@@ -9,16 +9,35 @@ const getTasks= async (req,res)=>{
    return res.status(200).json({tasks})
 }
 
-const getSingleTask=(req,res)=>{
+const getSingleTask=async (req,res)=>{
     const id = req.params.id
     if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error:'No such Workout'})
+        return res.status(404).json({error:'No such Task'})
     }
-   return res.status(200).json({success:'Retrieved Single Task'})
+    
+    const task= await Task.findById(id)
+    if(!task){
+        return res.status(404).json({error:'No such Task'})
+    }else{
+         res.status(200).json(task)
+    }
+    
+ 
 }
 
-const deleteTask=(req,res)=>{
-   return res.status(200).json({success:'Deleted a Task'})
+const deleteTask=async (req,res)=>{
+   const id = req.params.id
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error:'No such Task'})
+    }
+    
+    const task= await Task.findByIdAndDelete(id)
+    if(!task){
+        return res.status(404).json({error:'No such Task'})
+    }else{
+         res.status(200).json(task)
+    }
+    
 }
 
 const createTask=async (req,res)=>{
@@ -46,8 +65,18 @@ const createTask=async (req,res)=>{
 
 }
 
-const updateTask=(req,res)=>{
-   return res.status(200).json({success:'Updated a Task'})
+const updateTask=async (req,res)=>{
+   const id = req.params.id
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error:'No such Task'})
+    }
+    
+    const task= await Task.findByIdAndUpdate(id,{...req.body})
+    if(!task){
+        return res.status(404).json({error:'No such Task'})
+    }else{
+         res.status(200).json(task)
+    }
 }
 
 
