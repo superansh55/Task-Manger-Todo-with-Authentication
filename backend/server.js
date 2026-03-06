@@ -1,10 +1,12 @@
 import "dotenv/config"
 import express from 'express'
+import cors from 'cors'
 import mongoose from 'mongoose'
 import taskRoutes from './routes/task.js'
 
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 mongoose.connect(process.env.MONG_URI)
 .then((result)=>
