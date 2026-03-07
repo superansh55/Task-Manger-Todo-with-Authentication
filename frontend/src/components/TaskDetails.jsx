@@ -3,25 +3,33 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { useTaskContext } from "../hooks/useTasksContext";
 import { useAuthContext } from "../hooks/useAuthContext";
-const TaskDetails = ({ task }) => {
-     const { dispatch } = useTaskContext();
-       const { user } = useAuthContext();
-  const handleClick = async () => {
-     if(!user){
-            return
-        }
-    const response= await fetch('http://localhost:4000/api/tasks/'+task._id,{
-        method: 'DELETE',
-            headers:{
-                 'Authorization':`Bearer ${user.token}`
-            }
-        
-    })
-    const json  = await response.json()
-    if(response.ok){
-        dispatch({ type: "DELETE_TASK", payload: json});
+const TaskDetails = ({ task, onEdit }) => {
+  const { dispatch } = useTaskContext();
+  const { user } = useAuthContext();
+
+  const handleDelete = async () => {
+    if (!user) {
+      return;
+    }
+    const response = await fetch(
+      "http://localhost:4000/api/tasks/" + task._id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      },
+    );
+    const json = await response.json();
+    if (response.ok) {
+      dispatch({ type: "DELETE_TASK", payload: json });
     }
   };
+
+  const handleEdit = () => {
+    onEdit(task);
+  };
+
   return (
     <div className="task-details">
       <h4>{task.title}</h4>
@@ -36,9 +44,16 @@ const TaskDetails = ({ task }) => {
       <p>
         {formatDistanceToNow(new Date(task.createdAt), { addSuffix: true })}
       </p>
-      <span className="material-symbols-outlined" onClick={handleClick}>
-        delete
-      </span>
+      <span
+        className="material-symbols-outlined edit-btn"
+        onClick={handleEdit}
+        title="Edit task"
+      >edit</span>
+      <span
+        className="material-symbols-outlined delete-btn"
+        onClick={handleDelete}
+        title="Delete task"
+      >delete</span>
     </div>
   );
 };

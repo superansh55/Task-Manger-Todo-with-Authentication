@@ -24,7 +24,7 @@ const handleSubmit= async(e)=>{
             onChange={(e)=>setPassword(e.target.value)} 
             value={password}
              />
-        <button disabled={isLoading}>Login</button>
+        <button type="submit" disabled={isLoading}>Login</button>
              {error&& <div className="error">{error}</div>}
         </form>
     )
