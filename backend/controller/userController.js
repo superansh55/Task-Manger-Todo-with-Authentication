@@ -2,8 +2,32 @@ import User from "../model/UserModel.js";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import validator from "validator";
+import jwt from "jsonwebtoken";
 
-const loginUser = async () => {};
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+};
+const loginUser = async (req,res) => {
+  const { email, password } = req.body;
+
+  try {
+    if (!email || !password) {
+      throw Error("All fields must be filled");
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw Error("Incorrect Email");
+    }
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw Error("Incorrect password");
+    }
+     const token = createToken(user._id);
+      res.status(200).json({ email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 const signupUser = async (req, res) => {
   try {
@@ -24,7 +48,8 @@ const signupUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const user = await User.create({ email, password: hash });
-      res.status(200).json({ email, userId: user._id });
+    const token = createToken(user._id);
+    res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
