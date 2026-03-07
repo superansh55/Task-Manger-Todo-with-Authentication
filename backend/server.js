@@ -9,6 +9,10 @@ import userRoutes from './routes/user.js'
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 mongoose.connect(process.env.MONG_URI)
 .then((result)=>
 app.listen(process.env.PORT,()=>{

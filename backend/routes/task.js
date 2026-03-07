@@ -6,9 +6,9 @@ import {
   getTasks,
   updateTask,
 } from "../controller/taskController.js";
-
+import requireAuth from "../middleware/requireAuth.js";
 const router = express.Router();
-
+router.use(requireAuth)
 router.get("/", getTasks);
 router.get("/:id", getSingleTask);
 router.post("/", createTask);
