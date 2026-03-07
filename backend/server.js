@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import taskRoutes from './routes/task.js'
+import userRoutes from './routes/user.js'
 
 
 const app = express()
@@ -17,4 +18,6 @@ app.listen(process.env.PORT,()=>{
 
   
 app.use('/api/tasks',taskRoutes)
+app.use('/api/user',userRoutes)
+
 
