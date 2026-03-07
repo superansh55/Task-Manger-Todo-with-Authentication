@@ -1,11 +1,5 @@
-# Task-Manger-Todo-with-Authentication
-Here is a comprehensive and professional `README.md` template tailored specifically for your project based on the code and features we've been working on.
+LIVE- https://task-manger-todo-with-authenticatio.vercel.app/
 
-You can copy and paste this directly into the `README.md` file in your repository!
-
----
-
-```markdown
 # 📝 Task Manager (Todo App) with Authentication
 
 A full-stack MERN (MongoDB, Express, React, Node.js) application that allows users to create, manage, and track their daily tasks with deadlines. It includes a robust user authentication system to ensure that users can securely manage their own private task lists.
