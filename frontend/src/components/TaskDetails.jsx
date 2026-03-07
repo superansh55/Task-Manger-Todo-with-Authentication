@@ -12,7 +12,7 @@ const TaskDetails = ({ task, onEdit }) => {
       return;
     }
     const response = await fetch(
-      "http://localhost:4000/api/tasks/" + task._id,
+      "https://task-manger-todo-with-authentication.onrender.com/api/tasks/" + task._id,
       {
         method: "DELETE",
         headers: {

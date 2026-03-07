@@ -46,7 +46,7 @@ const TaskForm = ({ onClose, taskToEdit, onUpdate }) => {
     if (isEditing) {
       // Update existing task
       const response = await fetch(
-        `http://localhost:4000/api/tasks/${taskToEdit._id}`,
+        `https://task-manger-todo-with-authentication.onrender.com/api/tasks/${taskToEdit._id}`,
         {
           method: "PATCH",
           body: JSON.stringify(task),
@@ -68,7 +68,7 @@ const TaskForm = ({ onClose, taskToEdit, onUpdate }) => {
       }
     } else {
       // Create new task
-      const response = await fetch("http://localhost:4000/api/tasks", {
+      const response = await fetch("https://task-manger-todo-with-authentication.onrender.com/api/tasks", {
         method: "POST",
         body: JSON.stringify(task),
         headers: {

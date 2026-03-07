@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch("http://localhost:4000/api/tasks/", {
+      const response = await fetch("https://task-manger-todo-with-authentication.onrender.com/api/tasks/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
