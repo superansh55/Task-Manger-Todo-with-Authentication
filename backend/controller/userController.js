@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
-const loginUser = async (req,res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -22,8 +22,8 @@ const loginUser = async (req,res) => {
     if (!match) {
       throw Error("Incorrect password");
     }
-     const token = createToken(user._id);
-      res.status(200).json({ email, token });
+    const token = createToken(user._id);
+    res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -39,7 +39,9 @@ const signupUser = async (req, res) => {
       throw Error("Email is not valid");
     }
     if (!validator.isStrongPassword(password)) {
-      throw Error("Passwore not strong enough");
+      throw Error(
+        "Passwore not strong enough,password length should be minimum 8 characters including a Uppercase letter,lower case letter and symbol",
+      );
     }
     const exists = await User.findOne({ email });
     if (exists) {
