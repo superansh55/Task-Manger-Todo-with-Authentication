@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { BASE_URL } from "../constants";
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
@@ -8,7 +9,7 @@ export const useSignup = () => {
   const signup = async (email, password) => {
     setIsLoading(true);
     setError(null);
-    const response = await fetch("https://task-manger-todo-with-authentication.onrender.com/api/user/signup", {
+    const response = await fetch(`${BASE_URL}/api/user/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

@@ -3,6 +3,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { useTaskContext } from "../hooks/useTasksContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { BASE_URL } from "../constants";
 const TaskDetails = ({ task, onEdit }) => {
   const { dispatch } = useTaskContext();
   const { user } = useAuthContext();
@@ -11,15 +12,12 @@ const TaskDetails = ({ task, onEdit }) => {
     if (!user) {
       return;
     }
-    const response = await fetch(
-      "https://task-manger-todo-with-authentication.onrender.com/api/tasks/" + task._id,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+    const response = await fetch(`${BASE_URL}/api/tasks/${task._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
       },
-    );
+    });
     const json = await response.json();
     if (response.ok) {
       dispatch({ type: "DELETE_TASK", payload: json });
@@ -48,12 +46,16 @@ const TaskDetails = ({ task, onEdit }) => {
         className="material-symbols-outlined edit-btn"
         onClick={handleEdit}
         title="Edit task"
-      >edit</span>
+      >
+        edit
+      </span>
       <span
         className="material-symbols-outlined delete-btn"
         onClick={handleDelete}
         title="Delete task"
-      >delete</span>
+      >
+        delete
+      </span>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import TaskDetails from "../components/TaskDetails";
 import TaskForm from "../components/TaskForm";
 import { useTaskContext } from "../hooks/useTasksContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { BASE_URL } from "../constants";
 
 const Home = () => {
   const { tasks, dispatch } = useTaskContext();
@@ -12,7 +13,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch("https://task-manger-todo-with-authentication.onrender.com/api/tasks/", {
+      const response = await fetch(`${BASE_URL}/api/tasks/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

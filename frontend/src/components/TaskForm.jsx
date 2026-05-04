@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTaskContext } from "../hooks/useTasksContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { BASE_URL } from "../constants";
 
 const TaskForm = ({ onClose, taskToEdit, onUpdate }) => {
   const [title, setTitle] = useState("");
@@ -45,17 +46,14 @@ const TaskForm = ({ onClose, taskToEdit, onUpdate }) => {
 
     if (isEditing) {
       // Update existing task
-      const response = await fetch(
-        `https://task-manger-todo-with-authentication.onrender.com/api/tasks/${taskToEdit._id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify(task),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
-          },
+      const response = await fetch(`${BASE_URL}/api/tasks/${taskToEdit._id}`, {
+        method: "PATCH",
+        body: JSON.stringify(task),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
-      );
+      });
       const json = await response.json();
 
       if (!response.ok) {
@@ -68,7 +66,7 @@ const TaskForm = ({ onClose, taskToEdit, onUpdate }) => {
       }
     } else {
       // Create new task
-      const response = await fetch("https://task-manger-todo-with-authentication.onrender.com/api/tasks", {
+      const response = await fetch(`${BASE_URL}/api/tasks`, {
         method: "POST",
         body: JSON.stringify(task),
         headers: {

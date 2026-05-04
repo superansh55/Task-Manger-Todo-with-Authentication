@@ -42,3 +42,35 @@ jobs:
               -e MONGO_URI="${{ secrets.MONG_URI }}" \
               -e JWT_SECRET="${{ secrets.SECRET }}" \
               ansh-task-backend
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Grab your code from GitHub
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Install Node.js on the GitHub runner
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      # 3. Build the React app
+      - name: Install dependencies and Build
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
+
+      # 4. Log into AWS
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # 5. Sync the compiled files to S3
+      - name: Deploy to S3
+        run: |
+          aws s3 sync frontend/dist s3://ansh-task-manager-frontend-998877 --delete
