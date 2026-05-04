@@ -39,7 +39,7 @@ jobs:
             sudo docker run -d \
               --name ansh-task-backend \
               -p 4000:4000 \
-              -e MONGO_URI="${{ secrets.MONG_URI }}" \
-              -e JWT_SECRET="${{ secrets.SECRET }}" \
+              -e MONG_URI="${{ secrets.MONG_URI }}" \
+              -e SECRET="${{ secrets.SECRET }}" \
               ansh-task-backend
  
