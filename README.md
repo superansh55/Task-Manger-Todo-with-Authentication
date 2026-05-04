@@ -6,38 +6,52 @@ A full-stack MERN (MongoDB, Express, React, Node.js) application that allows use
 
 ## ✨ Features
 
-* **User Authentication:** Secure signup and login functionality using JSON Web Tokens (JWT).
-* **Protected Routes:** Frontend and backend logic to ensure users can only access and modify their own tasks.
-* **Full CRUD Functionality:** Create, Read, Update, and Delete tasks seamlessly.
-* **Deadline Tracking:** Set deadlines for tasks and view formatted date/time statuses (e.g., "in 2 days", "overdue") powered by `date-fns`.
-* **Global State Management:** Utilizes React Context API (`AuthContext` and `TaskContext`) for efficient state management without prop drilling.
-* **Sleek UI/UX:** A custom, fully responsive Dark Theme built with modern CSS variables, animations, and Google Material Symbols.
+- **User Authentication:** Secure signup and login functionality using JSON Web Tokens (JWT).
+- **Protected Routes:** Frontend and backend logic to ensure users can only access and modify their own tasks.
+- **Full CRUD Functionality:** Create, Read, Update, and Delete tasks seamlessly.
+- **Deadline Tracking:** Set deadlines for tasks and view formatted date/time statuses (e.g., "in 2 days", "overdue") powered by `date-fns`.
+- **Global State Management:** Utilizes React Context API (`AuthContext` and `TaskContext`) for efficient state management without prop drilling.
+- **Sleek UI/UX:** A custom, fully responsive Dark Theme built with modern CSS variables, animations, and Google Material Symbols.
 
 ## 🛠️ Tech Stack
 
 **Frontend:**
-* React (with Hooks: `useState`, `useEffect`, Custom Hooks)
-* Context API (State Management)
-* CSS3 (Custom Dark Theme & Responsive Design)
-* `date-fns` (Date formatting and relative time calculations)
+
+- React (with Hooks: `useState`, `useEffect`, Custom Hooks)
+- Context API (State Management)
+- CSS3 (Custom Dark Theme & Responsive Design)
+- `date-fns` (Date formatting and relative time calculations)
+
+## Cloud Architecture & CI/CD Pipeline
+
+This project demonstrates a modern decoupled deployment strategy utilizing AWS and Infrastructure as Code:
+
+- **Infrastructure Provisioning:** AWS environments (EC2, S3, Security Groups, IAM) are provisioned systematically using **Terraform**.
+- **Frontend Hosting:** The React application is compiled and synced to an **Amazon S3** bucket configured for static website hosting.
+- **Backend Hosting:** The Node.js REST API is containerized using **Docker** and hosted on an **Amazon EC2** Ubuntu instance.
+- **Database:** Data is securely managed off-server using a **MongoDB Atlas** cluster.
+- **CI/CD Automation:** A **GitHub Actions** workflow automatically triggers on pushes to the `main` branch, SSH-ing into the EC2 instance to build and deploy the latest backend container, and syncing the compiled frontend build directly to S3.
 
 **Backend:**
-* Node.js
-* Express.js
-* MongoDB (Database)
-* Mongoose (ODM for database schemas)
-* JSON Web Tokens (JWT for secure authentication)
-* bcrypt (Password hashing)
+
+- Node.js
+- Express.js
+- MongoDB (Database)
+- Mongoose (ODM for database schemas)
+- JSON Web Tokens (JWT for secure authentication)
+- bcrypt (Password hashing)
 
 ## 🚀 Getting Started
 
 To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
-* [Node.js](https://nodejs.org/) installed on your machine.
-* A [MongoDB](https://www.mongodb.com/) URI (either local or MongoDB Atlas).
+
+- [Node.js](https://nodejs.org/) installed on your machine.
+- A [MongoDB](https://www.mongodb.com/) URI (either local or MongoDB Atlas).
 
 ### 1. Clone the repository
+
 ```bash
 git clone [https://github.com/superansh55/Task-Manger-Todo-with-Authentication.git](https://github.com/superansh55/Task-Manger-Todo-with-Authentication.git)
 
@@ -118,7 +132,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 **Ansh**
 
-* GitHub: [@superansh55](https://www.google.com/search?q=https://github.com/superansh55)
+- GitHub: [@superansh55](https://www.google.com/search?q=https://github.com/superansh55)
 
 ```
 
