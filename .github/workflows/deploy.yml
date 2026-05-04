@@ -1,0 +1,44 @@
+name: Deploy Backend to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**" # This pipeline only runs if backend code changes
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # 1. Clone or update the code on the server
+            if [ ! -d "task-manger-todo-with-authentication" ]; then
+              git clone https://github.com/superansh55/task-manger-todo-with-authentication.git
+            fi
+            cd task-manger-todo-with-authentication
+            git pull origin main
+
+            # 2. Go to the backend directory
+            cd backend
+
+            # 3. Stop and remove the old container if it exists
+            sudo docker stop ansh-task-backend || true
+            sudo docker rm ansh-task-backend || true
+
+            # 4. Build the new Docker image
+            sudo docker build -t ansh-task-backend .
+
+            # 5. Run the new container, injecting database secrets securely
+            sudo docker run -d \
+              --name ansh-task-backend \
+              -p 4000:4000 \
+              -e MONGO_URI="${{ secrets.MONG_URI }}" \
+              -e JWT_SECRET="${{ secrets.SECRET }}" \
+              ansh-task-backend
