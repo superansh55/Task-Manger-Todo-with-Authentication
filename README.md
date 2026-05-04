@@ -22,6 +22,15 @@ A full-stack MERN (MongoDB, Express, React, Node.js) application that allows use
 - CSS3 (Custom Dark Theme & Responsive Design)
 - `date-fns` (Date formatting and relative time calculations)
 
+**Backend:**
+
+- Node.js
+- Express.js
+- MongoDB (Database)
+- Mongoose (ODM for database schemas)
+- JSON Web Tokens (JWT for secure authentication)
+- bcrypt (Password hashing)
+  
 ## Cloud Architecture & CI/CD Pipeline
 
 This project demonstrates a modern decoupled deployment strategy utilizing AWS and Infrastructure as Code:
@@ -31,16 +40,6 @@ This project demonstrates a modern decoupled deployment strategy utilizing AWS a
 - **Backend Hosting:** The Node.js REST API is containerized using **Docker** and hosted on an **Amazon EC2** Ubuntu instance.
 - **Database:** Data is securely managed off-server using a **MongoDB Atlas** cluster.
 - **CI/CD Automation:** A **GitHub Actions** workflow automatically triggers on pushes to the `main` branch, SSH-ing into the EC2 instance to build and deploy the latest backend container, and syncing the compiled frontend build directly to S3.
-
-**Backend:**
-
-- Node.js
-- Express.js
-- MongoDB (Database)
-- Mongoose (ODM for database schemas)
-- JSON Web Tokens (JWT for secure authentication)
-- bcrypt (Password hashing)
-
 ## 🚀 Getting Started
 
 To get a local copy up and running, follow these simple steps.
