@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-#  caching optimization for faste deployments
+#  caching optimization for faste deployments.
 COPY package*.json ./
 
 RUN npm install
