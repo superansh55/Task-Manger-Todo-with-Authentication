@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile for a Node.js application using Distroless for the final image
+# Multi-stage Dockerfile for a Node.js app using Distroless for the final image
 
 # STAGE 1
 
