@@ -43,7 +43,6 @@ jobs:
             sudo docker build -t ansh-task-backend .
 
             # 5. Run the new container, injecting ALL secrets securely
-
             sudo docker run -d \
               --name ansh-task-backend \
               -p 4000:4000 \
@@ -51,3 +50,6 @@ jobs:
               -e SECRET="$SECRET" \
               -e PORT="$PORT" \
               ansh-task-backend
+
+            # 6. Clean up old dangling images and unused volumes to save EC2 disk space
+            sudo docker system prune -af --volumes
