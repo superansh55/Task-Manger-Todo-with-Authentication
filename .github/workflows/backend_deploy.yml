@@ -43,8 +43,7 @@ jobs:
             sudo docker build -t ansh-task-backend .
 
             # 5. Run the new container, injecting ALL secrets securely
-            # Note: I am keeping -p 4000:4000 to map it to the AWS Firewall, 
-            # while passing the internal PORT variable to Node.
+
             sudo docker run -d \
               --name ansh-task-backend \
               -p 4000:4000 \

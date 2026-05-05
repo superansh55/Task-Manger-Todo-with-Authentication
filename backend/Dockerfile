@@ -1,14 +1,32 @@
-FROM node:18-alpine
+# Multi-stage Dockerfile for a Node.js application using Distroless for the final image
+
+# STAGE 1
+
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-#  caching optimization for faste deployments.
+# Copy dependency files first for caching
 COPY package*.json ./
 
-RUN npm install
+
+RUN npm ci
+
 
 COPY . .
 
+
+# STAGE 2
+
+#Google Distroless image 
+FROM gcr.io/distroless/nodejs18-debian11
+
+WORKDIR /app
+
+
+COPY --from=builder /app /app
+
 EXPOSE 4000
 
-CMD ["node", "server.js"]
+
+CMD ["server.js"]
